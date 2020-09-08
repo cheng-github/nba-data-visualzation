@@ -1,0 +1,20 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>draw </title>
+</head>
+<body>
+  <canvas id="rect" width="300" height="300"></canvas>
+</body>
+<script type="text/javascript">
+  const canvas = document.getElementById('rect');
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = '#111153';
+  ctx.fillRect(25, 25, 100, 100);
+  ctx.strokeStyle = '#762312';
+  ctx.strokeRect(130, 60, 100, 100);
+  ctx.clearRect(40, 50, 110, 110);
+</script>
+</html>

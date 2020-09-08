@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body onload="draw();">
+  <div>
+    <canvas id="canvas">
+  </div>
+</body>
+<script type="text/javascript">
+  function draw() {
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext('2d');
+    // 我们发现之前的方法中，直接用 ctx 去调用如 arc、toArc、bezier..、quatratci 等
+    // 的方法，这样使的话，路径对象和 ctx 耦合在了一起
+    // 所以，这就是 Path2D 对象的用武之地，它将绘图拆分成了控制器和路径两部分
+    // 除此之外，它还提供了一些复用之前的 Path 路径的方法，以及复制 svg 路径的方法，
+    // 可以说大大提升了 canvas 绘制路径的复用性和拓展性
+    // 废话不多说，上例子
+    // var rectangle = new Path2D();
+    // rectangle.rect(10, 10, 50, 50);
+
+    // var circle = new Path2D();
+    // circle.arc(100, 35, 25, 0, 2 * Math.PI);
+
+    // ctx.stroke(rectangle);
+    // ctx.fill(circle);
+
+    var p = new Path2D('M10 10 h 80 v 80 h -80 Z');
+    ctx.stroke(p);
+  
+
+  }
+</script>
+<style media="screen">
+  canvas {
+    border: 1px solid black;
+  }
+</style>
+
+</html>

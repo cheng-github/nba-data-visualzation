@@ -1,0 +1,15 @@
+{
+  "name": "data-crawler",
+  "version": "1.0.0",
+  "description": "爬取nba球员数据",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "mongodb": "^3.5.9",
+    "puppeteer-core": "^4.0.1"
+  }
+}

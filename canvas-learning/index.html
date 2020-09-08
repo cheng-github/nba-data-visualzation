@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body onload="draw();">
+    <p>我不是一个 fallback 内容，所以 canvas 的关闭标签是需要的</p>
+    <div>
+      <canvas id="canvas">
+          <p>我不是一个 fallback 内容</p>
+    </div>
+    
+    <p>我不是一个 fallback 内容</p>
+  </body>
+  <script type="text/javascript">
+    function draw() {
+      const canvas = document.getElementById("canvas");
+      var ctx;
+      // 检查是否支持 canvas
+      if (canvas.getContext) {
+        ctx = canvas.getContext('2d');
+        ctx.fillStyle = 'rgb(200, 0, 0)';
+        ctx.fillRect(10, 10, 100, 100);
+        ctx.clearRect(45, 45, 60, 60);
+        ctx.strokeRect(50, 50, 50, 50);
+        
+      } else {
+        // canvas-unsupported code here
+        alert("不支持 canvas")
+      }
+    }
+  </script>
+  <style media="screen">
+    canvas {
+      border: 1px solid black;
+    }
+  </style>
+</html>

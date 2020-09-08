@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body onload="draw();">
+  <canvas id="arc" width="600" height="600"></canvas>
+</body>
+<script type="text/javascript">
+  function draw() {
+    // 画一个弧线
+    var arcCanvas = document.getElementById('arc');
+    var ctx = arcCanvas.getContext('2d');
+    ctx.beginPath();
+    ctx.moveTo(50, 20);
+    ctx.bezierCurveTo(190, 30, 300, 60, 450, 200);
+    ctx.stroke();
+    
+    ctx.beginPath();
+    ctx.fillStyle = '#754621';
+    ctx.arc(50, 20, 10, 0, Math.PI * 2);
+    ctx.arc(450, 200, 10, 0, Math.PI * 2);
+    ctx.fill();
+    
+    ctx.beginPath();
+    ctx.fillStyle = 'red';
+    ctx.arc(190, 30, 10, 0, Math.PI * 2);
+    ctx.arc(300, 60, 10, 0, Math.PI * 2);
+    ctx.fill();
+
+
+  }
+</script>
+<style media="screen">
+  canvas {
+    border: 1px solid black;
+  }
+</style>
+
+</html>
+
+
+
+
+
+
+
+
+

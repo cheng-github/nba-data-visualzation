@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+
+<body onload="draw();">
+    <canvas id="smile" width="300" height="300"></canvas>
+</body>
+<script type="text/javascript">
+    function draw() {
+        // 画一个笑脸
+        var smileCanvas = document.getElementById('smile');
+        var smileCtx = smileCanvas.getContext('2d')
+        smileCtx.beginPath();
+        smileCtx.strokeStyle = "red";
+        smileCtx.arc(75, 75, 50, 0, Math.PI * 2, true); // Outer circle
+
+        smileCtx.moveTo(110, 75);
+
+        smileCtx.arc(75, 75, 35, 0, Math.PI);  // Mouth (clockwise)
+        //smileCtx.moveTo(65, 65);
+        smileCtx.arc(60, 65, 5, 0, Math.PI * 2);  // Left eye
+        //smileCtx.moveTo(95, 65);
+        smileCtx.arc(90, 65, 5, 0, Math.PI * 2);  // Right eye
+        
+        smileCtx.stroke();
+
+        // 注意，在每次调用 arc 方法前，如果当前画笔已经停留在了圆心之外的另一个节点，那么会默认先调用
+        // 一个 lineTo 方法，为了避免这种我们不希望出现的行为，我们可以手动定义一个 moveTo 方法
+        // 去避免 lineTo 调用带来的不需要的效果 see line 20
+    }
+</script>
+<style media="screen">
+    canvas {
+        border: 1px solid black;
+    }
+</style>
+
+</html>

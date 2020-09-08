@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body onload="draw();">
+  <canvas id="arc" width="600" height="600"></canvas>
+</body>
+<script type="text/javascript">
+  function draw() {
+    // 画一个弧线
+    var arcCanvas = document.getElementById('arc');
+    var ctx = arcCanvas.getContext('2d');
+    const p0 = { x: 230, y: 20 }
+    const p1 = { x: 90, y: 130 }
+    const p2 = { x: 20, y: 20 }
+
+    const labelPoint = function (p) {
+      const offset = 15;
+      ctx.fillText('(' + p.x + ',' + p.y + ')', p.x + offset, p.y + offset);
+    }
+
+    ctx.beginPath();
+    ctx.moveTo(p0.x, p0.y);
+    ctx.arcTo(p1.x, p1.y, p2.x, p2.y, 20);
+    ctx.lineTo(p2.x, p2.y);
+
+    labelPoint(p0);
+    labelPoint(p1);
+    labelPoint(p2);
+
+    ctx.stroke();
+
+  }
+</script>
+<style media="screen">
+  canvas {
+    border: 1px solid black;
+  }
+</style>
+
+</html>

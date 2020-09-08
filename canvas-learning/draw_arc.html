@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body onload="draw();">
+    <canvas id="arc" width="600" height="600"></canvas>
+  </body>
+  <script type="text/javascript">
+    function draw() {
+      // 画一个弧线
+      var arcCanvas = document.getElementById('arc');
+      var arcCtx = arcCanvas.getContext('2d');
+      
+      // 使用 arc() 方法，六个参数分别代表 圆心坐标，半径大小，以弧度制为单位的起始和结束点，以及是否是逆时针画图
+      // 注意的是，弧度制的起点在以圆心和半径画圆在 x 轴 交接的右侧，默认以顺时针开始计算
+      // 另外一个有意思的点是，当 endPoint 大于 2π 的时候，顺时针和逆时针的绘图行为还不一致
+      for (var i = 0; i < 4; i++) {
+        for (var j = 0; j < 3; j++) {
+            arcCtx.beginPath();
+            var x = 25 + j * 50; // x coordinate
+            var y = 25 + i * 50; // y coordinate
+            var radius = 20; // Arc radius
+            var startAngle = 0; // Starting point on circle
+            var endAngle = Math.PI + (Math.PI * j); // End point on circle
+            var anticlockwise = i % 2 !== 0; // clockwise or anticlockwise
+      
+            arcCtx.arc(x, y, radius, startAngle, endAngle, anticlockwise);
+      
+            if (i > 1) {
+              arcCtx.fill();
+            } else {
+              arcCtx.stroke();
+            }
+        }
+      } 
+      // 测试 arc 方法的使用，之前一直弄不明白顺时针和逆时针的区别，简单来说，逆时针画的圆就是
+      // 顺时针的补集，也就是说，如果顺时针是完整的一个圆，那么逆时针必定为空
+      arcCtx.beginPath();
+      arcCtx.moveTo(300, 300);
+      arcCtx.arc(300, 300, 150, Math.PI / 5, Math.PI * 1.8, false);
+      arcCtx.fill();
+
+      // 测试 arcTo 方法，这个取的是三个点的连线形成的角度的内切圆的弧线
+      // 如果内切圆半径过大，则会延伸两边的边长，去形成对应的内切圆
+      // 修改画笔的颜色前，应该调用 beginPath 方法，否则即使在后面才改 strokeStyle，
+      // 也会影响之前的路径
+      arcCtx.beginPath();
+      arcCtx.strokeStyle = "red"; 
+      arcCtx.moveTo(260, 220);
+      arcCtx.lineTo(220, 260);
+      arcCtx.lineTo(200, 160);
+      arcCtx.stroke();
+      
+      arcCtx.beginPath();
+      arcCtx.strokeStyle = "black";
+      arcCtx.moveTo(260, 220);
+      arcCtx.arcTo(220, 260, 200, 160, 5);
+      arcCtx.stroke();
+    }
+  </script>
+  <style media="screen">
+    canvas {
+      border: 1px solid black;
+    }
+  </style>
+</html>

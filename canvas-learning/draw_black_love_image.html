@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body onload="draw();">
+  <canvas id="arc" width="600" height="600"></canvas>
+</body>
+<script type="text/javascript">
+  function draw() {
+    // 画一个弧线
+    var arcCanvas = document.getElementById('arc');
+    var ctx = arcCanvas.getContext('2d');
+    const offsetX = -100;
+    const offsetY = -130;
+    let p1 = { x: 300, y: 300 };
+    let p2 = { x: 300, y: 450 };
+    let c1 = { x: p1.x - 140, y: p1.y - 110 };
+    let c2 = { x: p1.x - 100, y: p1.y + 120 };
+    let c3 = { x: p1.x * 2 - c2.x, y: c2.y };
+    let c4 = { x: p1.x * 2 - c1.x, y: c1.y };
+    const cArr = [c1, c2, c3, c4];
+    const pArr = [p1, p2];
+    
+    for (const pos of cArr.concat(pArr)) {
+      translate(pos, offsetX, offsetY);
+    }
+    
+    ctx.beginPath();
+    ctx.fillStyle = 'red';
+    ctx.moveTo(p1.x, p1.y);
+    ctx.bezierCurveTo(c1.x, c1.y, c2.x, c2.y, p2.x, p2.y);
+    ctx.bezierCurveTo(c3.x, c3.y, c4.x, c4.y, p1.x, p1.y);
+    ctx.closePath();
+    ctx.fill();
+
+    
+
+  }
+
+  // 对心形图案进行平移
+  function translate(pos, offsetX, offsetY) {
+    pos.x = pos.x + offsetX;
+    pos.y = pos.y + offsetY;
+  }
+</script>
+<style media="screen">
+  canvas {
+    border: 1px solid black;
+  }
+</style>
+
+</html>

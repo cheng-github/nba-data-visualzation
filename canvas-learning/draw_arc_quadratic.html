@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body onload="draw();">
+  <canvas id="arc" width="600" height="600"></canvas>
+</body>
+<script type="text/javascript">
+  function draw() {
+    // 画一个弧线
+    var arcCanvas = document.getElementById('arc');
+    var ctx = arcCanvas.getContext('2d');
+    ctx.beginPath();
+    ctx.moveTo(50, 20);
+    ctx.quadraticCurveTo(130, 30, 50, 100);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.fillStyle = 'orange';
+    ctx.arc(50, 20, 5, 0, 2 * Math.PI);
+    ctx.arc(50, 100, 5, 0, 2 * Math.PI);
+    ctx.moveTo(130, 30);
+    ctx.arc(130, 30, 5, 0, 2 * Math.PI);
+    ctx.fill();
+
+    
+    
+  }
+</script>
+<style media="screen">
+  canvas {
+    border: 1px solid black;
+  }
+</style>
+
+</html>
+
+
+
+
+
+
+
+
+

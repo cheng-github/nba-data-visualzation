@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body onload="draw();">
+    <div>
+      <canvas id="canvas">
+    </div>
+  </body>
+  <script type="text/javascript">
+    function draw() {
+      const canvas = document.getElementById("canvas");
+      var ctx;
+      // 检查是否支持 canvas
+      if (canvas.getContext) {
+        ctx = canvas.getContext('2d');
+        // beginPath 意味着开始画一个新的东西，在这这之前没有 stroke 或 fill 的内容都会被忽略
+        // Every time this method is called, the list is reset and we can start drawing new shapes.
+        ctx.beginPath();
+        // moveTo 可以理解为，将你的画笔举起，指向一个新的坐标
+        ctx.moveTo(75, 50);
+        // 可以理解为，从当前的坐标，描绘一条直线到对应的坐标
+        ctx.lineTo(100, 75);
+        ctx.lineTo(100, 25);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(20, 20);
+        ctx.lineTo(20, 135);
+        ctx.lineTo(125, 25);
+        ctx.fillStyle = "#118744";
+        ctx.fill();
+                
+      } else {
+        // canvas-unsupported code here
+        alert("不支持 canvas")
+      }
+
+      // Note: When you call fill(), any open shapes are closed automatically, 
+      // so you don't have to call closePath(). This is not the case when you call stroke().
+      // 调用 fill 会自动调 closePath，但 strokePath 却不会这样
+    }
+  </script>
+  <style media="screen">
+    canvas {
+      border: 1px solid black;
+    }
+  </style>
+</html>
