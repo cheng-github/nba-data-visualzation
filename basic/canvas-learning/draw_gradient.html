@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body onload="draw();">
+  <div>
+    <canvas id="canvas" width="600" height="500">
+    </canvas>
+  </div>
+</body>
+<script type="text/javascript">
+function draw() {
+  const ctx = document.getElementById("canvas").getContext('2d');
+  const linearGradient = ctx.createLinearGradient(0, 0, 150, 150);
+  linearGradient.addColorStop(0, 'green');
+  linearGradient.addColorStop(0.5, 'cyan');
+  linearGradient.addColorStop(1, 'green');
+
+  ctx.fillStyle = linearGradient;
+  ctx.fillRect(0, 0, 300, 300);
+  
+  ctx.beginPath();
+  const radialGradient = ctx.createRadialGradient();
+  
+
+
+}
+ 
+</script>
+<style media="screen">
+  canvas {
+    border: 1px solid black;
+  }
+</style>
+
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body onload="draw();">
+  <div>
+    <canvas id="canvas" width="600" height="600">
+  </div>
+</body>
+<script type="text/javascript">
+  function draw() {
+    const ctx = document.getElementById("canvas").getContext('2d');
+    const offset = 200;
+    ctx.fillText('从整数开始递增画笔宽度', 5, 10);
+    for (var i = 0; i < 10; i++) {
+      ctx.lineWidth = 1 + i;
+      ctx.beginPath();
+      ctx.moveTo(5 + i * 14, 25);
+      ctx.lineTo(5 + i * 14, 160);
+      ctx.stroke();
+    }
+
+    
+    ctx.fillText('从小数开始递增画笔宽度', 5.5, 180.5);
+    // 由于直线的画笔对中心的两边只会画一半像素的原因，所以上下就形成了交错的
+    // 占用半个像素的情况
+    for (var i = 0; i < 10; i++) {
+      ctx.lineWidth = 1 + i;
+      ctx.beginPath();
+      ctx.moveTo(5.5 + i * 14, offset + 5);
+      ctx.lineTo(5.5 + i * 14, offset + 140);
+      ctx.stroke();
+    }
+
+    // 使用 lineCap 属性去设置一个路径中端点的效果
+    // 默认值 butt，不做任何处理
+    // round 在末尾补上半圆，半径值为 lineWidth 的一半
+    // square 在末尾补上和 lineWidth 相等宽，一半 lineWidth 值高的像素
+    ctx.fillText('三种不同类型的 lineCap', 5.5, 400.5);
+    var lineCap = ['butt', 'round', 'square'];
+
+    // Draw guides
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = '#09f';
+    ctx.beginPath();
+    ctx.moveTo(10, offset * 2 + 10);
+    ctx.lineTo(140, offset * 2 + 10);
+    ctx.moveTo(10, offset * 2 + 140);
+    ctx.lineTo(140, offset * 2 + 140);
+    ctx.stroke();
+
+    // Draw lines
+    ctx.strokeStyle = 'black';
+    for (var i = 0; i < lineCap.length; i++) {
+      ctx.lineWidth = 9;
+      ctx.lineCap = lineCap[i];
+      ctx.beginPath();
+      ctx.moveTo(25 + i * 50, offset * 2 + 10.5);
+      ctx.lineTo(25 + i * 50, offset * 2 + 140.5);
+      ctx.stroke();
+    }
+
+    // 使用 lineJoin 设置两段路径如何在交叉部分进行连接
+    // round 填充以连接部分的公共点为圆心，lineWidth 一半为半径的圆角
+    // bevel 填充一个三角形，并用这个三角形分隔每个片段的外部矩形角
+    // miter 默认值，我们知道，根据 canvas 的绘画机制，两条线段的交叉部分，在 lineWidth
+    // 不变的情况下，一定会形成一个菱形，miter 的作用就是填上一个默认的菱形 
+    var lineJoin = ['round', 'bevel', 'miter'];
+    ctx.lineWidth = 10;
+    ctx.fillText('三种不同类型的 lineJoin', 200.5, 20.5);
+    for (var i = 0; i < lineJoin.length; i++) {
+      ctx.lineJoin = lineJoin[i];
+      ctx.beginPath();
+      ctx.moveTo(-5 + offset, 5 + i * 40 + offset / 3);
+      ctx.lineTo(35 + offset, 45 + i * 40 + offset / 3);
+      ctx.lineTo(75 + offset, 5 + i * 40 + offset / 3);
+      ctx.lineTo(115 + offset, 45 + i * 40 + offset / 3);
+      ctx.lineTo(155 + offset, 5 + i * 40 + offset / 3);
+      ctx.stroke();
+    }
+
+  }
+</script>
+<style media="screen">
+  canvas {
+    border: 1px solid black;
+  }
+</style>
+
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body onload="draw();">
+  <div>
+    <canvas id="canvas" width="600" height="600">
+  </div>
+</body>
+<script type="text/javascript">
+  function draw() {
+    const ctx = document.getElementById("canvas").getContext('2d');
+
+    // draw background
+    ctx.fillStyle = '#FD0';
+    ctx.fillRect(0, 0, 75, 75);
+    ctx.fillStyle = '#6C0';
+    ctx.fillRect(75, 0, 75, 75);
+    ctx.fillStyle = '#09F';
+    ctx.fillRect(0, 75, 75, 75);
+    ctx.fillStyle = '#F30';
+    ctx.fillRect(75, 75, 75, 75);
+
+    // set transparency value
+    ctx.globalAlpha = 0.2;
+    // 设置成白色的画笔
+    ctx.fillStyle = '#000';
+    // Draw semi transparent circles
+    for (var i = 0; i < 7; i++) {
+      ctx.beginPath();
+      ctx.arc(75, 75, 10 + 10 * i, 0, Math.PI * 2, true);
+      ctx.fill();
+    }
+
+
+  }
+</script>
+<style media="screen">
+  canvas {
+    border: 1px solid black;
+  }
+</style>
+
+</html>
