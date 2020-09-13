@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>basic shape</title>
+</head>
+
+<body>
+    <!-- 对于 Path 标签而言，只有一个 d 属性是起作用的，d 的值包含了关于 Path 的所有信息 -->
+    <!-- 其实 d 里面包含的是一系列的命令以及命令使用的参数 -->
+    <!-- 每一个命令由一个特定的字母进行表示，比如 moveTo 由 M 表示，当解析器运行到这个
+        字母的时候，它知道需要将光标移动至 M 后面的坐标 -->
+    <!-- 另外，命令的大小写是有区别的，大写后面表示的是绝对路径，而小写则是相对于当前的路径 -->
+    <!-- 除了 M 之外，还有 L 表示 lineTo， H 表示水平移动， V 表示垂直方向的移动 -->
+  <svg version="1.1" baseProfile="full" width="300" height="300" xmlns="http://www.w3.org/2000/svg">
+    <path d="M 10 10 H 90 V 90 H 10 L 10 10" stroke="gold" fill="none"/>
+
+    <!-- 我们知道路径中有 closePath 这个 API，在 path 用大写字母 Z 或小写 z 表示 -->
+    <path d="M 200 200 h 90 v 90 h -90 Z" fill="transparent" stroke="blue" />
+
+    <!-- 前面的例子中，我们看到的都是点的直线移动，path 的最后一种用法是用贝塞尔公式绘制曲线 -->
+    <!-- Path可以用于两种曲线的绘制，三个点的 quadratic 用 Q 表示，四个点的 cubic 用 C 表示 -->
+    <!-- 关于 C 的语法， C x1 y1, x2 y2, x y -->
+    <!-- x y 表示终点，而 x1 y1 x2 y2 表示控制点 -->
+    <path d="M 10 10 C 20 20, 40 20, 50 10" stroke="black" fill="transparent" />
+    <path d="M 70 10 C 70 20, 110 20, 110 10" stroke="black" fill="transparent" />
+    <path d="M 130 10 C 120 20, 180 20, 170 10" stroke="black" fill="transparent" />
+    <path d="M 10 60 C 20 80, 40 80, 50 60" stroke="black" fill="transparent" />
+    <path d="M 70 60 C 70 80, 110 80, 110 60" stroke="black" fill="transparent" />
+    <path d="M 130 60 C 120 80, 180 80, 170 60" stroke="black" fill="transparent" />
+    <path d="M 10 110 C 20 140, 40 140, 50 110" stroke="black" fill="transparent" />
+    <path d="M 70 110 C 70 140, 110 140, 110 110" stroke="black" fill="transparent" />
+    <path d="M 130 110 C 120 140, 180 140, 170 110" stroke="black" fill="transparent" />
+
+    <!-- 我们知道使用 cubic 曲线需要两个控制点，以及一个起始点和结束点，但其实还有另外一种编写 cubic 曲线的 -->
+    <!-- 方式，就是使用 S 命令，在之前使用 canvas 画爱心的时候，将整个爱心拆分成两条对称的曲线，但难受的地方是， -->
+    <!-- 我们得对之前的控制点进行计算得到对称的点，但 S 可以在我们需要添加这种对称类型的控制点的时候，自动帮助我们 -->
+    <!-- 添加第一个控制点 -->
+    <!-- 参考: https://www.w3.org/TR/SVG/paths.html#PathDataCubicBezierCommands -->
+    <path d="M 10 80 C 40 10, 65 10, 95 80 S 150 150, 180 80" stroke="green" fill="transparent" />
+    <!-- 相对位置 -->
+    <!-- <path d="M 10 80 c 30 -70, 55 -70, 85 0 s 55 70, 85 0" stroke="black" fill="transparent" /> -->
+    <!-- 我们发现，在 S 中我们仅仅添加了第二个控制点的坐标 150 150，其实它的第一个控制点的位置计算方式是， -->
+    <!-- 找到前一个命令的第二个控制点和当前曲线所在的起点的对称点，把这个点当作当前曲线第一个控制点 -->
+    <!-- 那么问题来了，这样使用的前提必须是前一个命令必须是 S、s、C、c，如果不是这四个之一，那么当前 S 命令 -->
+    <!-- 的第一个控制点的坐标会和起点重叠，也就是说，这样的 S 命令相当于一个 Q -->
+
+    <!-- 一个 q 的例子 -->
+    <!-- <path d="M 10 80 q 85 -70 170 0" stroke="black" fill="transparent" /> -->
+    
+    <!-- 另外一个注意的地方是，对于 c、q 这样曲线命令，因为除了控制点之外还有终点，如果使用相对的坐标，也就是小写， -->
+    <!-- 命令中所有的坐标都是相对于起点而言的，并不是相对于上一个而言的 -->
+    <!-- 如果连续的使用相对坐标，那么接下来的相对也是相对于当前坐标的绝对定位而言的 -->
+
+    <!-- 我们发现，自动计算相对位置的对于 C 类型的贝塞尔曲线有 S，那么对于 Q 同样也有相同的命名，它叫 T -->
+    <path d="M 10 80 Q 52.5 10, 95 80 T 180 80" stroke="orange" fill="transparent" />
+
+  </svg>
+</body>
+
+</html>

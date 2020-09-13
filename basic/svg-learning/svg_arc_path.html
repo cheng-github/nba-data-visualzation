@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>svg arc path</title>
+</head>
+<body>
+  <svg width="600" height="600">
+    <!-- 使用 A 命令绘制一个圆或者一个椭圆 -->
+    <!-- 绘制一个简单的椭圆 -->
+    <circle cx="125" cy="75" r="3" stroke="red" fill="transparent"></circle>
+    <circle cx="225" cy="125" r="3" stroke="red" fill="transparent"></circle>
+    <!-- 这里的几个参数分别表示的是，椭圆的 x 轴半径、y 轴半径、x 轴的旋转角度、 large-arc-flag sweep-flag
+         以及终点的坐标
+    -->
+    <!-- 因为只有起点和终点，以及椭圆的两个轴的半径，可以得到两个椭圆，这样两个点有四段可能的路径，
+         large-arc-flag 值为 1 表示取比较长的路径， sweep-flag 为 1 表示取 positive-angle 的路基
+         由这两个标志位可以确定具体选择的路径，但我对高中的几何已经忘记的差不多了，后面应该补补以前学习的椭圆
+         知识，不然都不明白这个标志位的含义
+    -->
+    <path d="M 125 75 a100 50 0 0 0 100 50" 
+      style="fill:none; stroke:red; stroke-width:2"></path>
+    <path d="M 125 75 a100 50 0 1 0 100 50" style="fill: none; stroke:red; stroke-width:2"></path>
+    <path d="M 125 75 a100 50 0 0 1 100 50" style="fill:none; stroke:red; stroke-width:2"></path>
+    <path d="M 125 75 a100 50 0 1 1 100 50" style="fill:none; stroke:red; stroke-width:2"></path>
+    
+
+    <path d="M 125 75 a100 50 40 0 0 100 50" style="fill:none; stroke:red; stroke-width:2"></path>
+    <path d="M 125 75 a100 50 40 1 0 100 50" style="fill:none; stroke:red; stroke-width:2"></path>
+    <path d="M 125 75 a100 50 40 0 1 100 50" style="fill:none; stroke:red; stroke-width:2"></path>
+    <path d="M 125 75 a100 50 40 1 1 100 50" style="fill:none; stroke:red; stroke-width:2"></path>
+  </svg>
+
+</body>
+</html>
