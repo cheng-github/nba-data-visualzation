@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style type="text/css">
+  #rect1 {
+    fill: url(#Gradient1);
+  }
+
+  .stop1 {
+    stop-color: red;
+  }
+
+  .stop2 {
+    stop-color: black;
+    stop-opacity: 0;
+  }
+
+  .stop3 {
+    stop-color: blue;
+  }
+</style>
+<body>
+  <!-- 之前在 canvas 中添加渐变色的时候，发现还需要调用 context 对象去创建渐变，感觉比起直接用起 css 而言确实
+      有不便的地方，同样在 svg 中，也是存在着特定的方式定义 gradients，并且需要为其提供一个 id 使其被引用 -->
+  <svg width="600" height="600" style="width: 600; height: 600;">
+    <defs>
+      <linearGradient id="Gradient1">
+        <stop class="stop1" offset="0%" />
+        <stop class="stop2" offset="50%" />
+        <stop class="stop3" offset="100%" />
+      </linearGradient>
+      <!-- 这里的 x1、y1、x2、y2 的作用是指定 gradient vector，也就是一个有方向的渐变矢量 
+          这个渐变矢量的作用在于，所有的 color stops 都会沿着渐变矢量的方向进行线性变化分布
+          对于 linear gradient 而言，一个 color stops normal 沿着矢量垂直的方式，而对于
+          radial gradient 而言，则是一个和矢量交叉的一个圆
+          ref: https://www.w3.org/TR/SVG/pservers.html#Gradients
+      -->
+      <linearGradient id="Gradient2" x1="0" x2="0" y1="0" y2="1">
+        <stop offset="0%" stop-color="red" />
+        <stop offset="50%" stop-color="black" stop-opacity="0" />
+        <stop offset="100%" stop-color="blue" />
+      </linearGradient>
+      <linearGradient id="Gradient3">
+        <stop class="stop1" offset="0%" />
+        <stop class="stop2" offset="20%" />
+        <stop class="stop3" offset="40%" />
+      </linearGradient>
+      <linearGradient id="Gradient4" x1="0" y1="0" x2=".2" y2="0" spreadMethod="repeat">
+        <stop stop-color="black" offset="10%" />
+        <stop stop-color="orange" offset="20%" />
+        <stop stop-color="pink" offset="85%" />
+      </linearGradient>
+      <radialGradient id="RadialGradient1">
+        <stop offset="0%" stop-color="red" />
+        <!-- <stop offset="90%" stop-color="orange" /> -->
+        <stop offset="100%" stop-color="blue" />
+      </radialGradient>
+      <radialGradient id="RadialGradient2" cx="0.25" cy="0.25" r="0.25">
+        <stop offset="0%" stop-color="red" />
+        <stop offset="100%" stop-color="blue" />
+      </radialGradient>
+      <radialGradient id="RadialGradient3" cx="0.5" cy="0.5" r="0.5" fx="0.25" fy="0.25">
+        <stop offset="0%" stop-color="red" />
+        <stop offset="100%" stop-color="blue" />
+      </radialGradient>
+    </defs>
+
+    <rect id="rect1" x="10" y="10" rx="15" ry="15" width="100" height="100" />
+    <rect x="10" y="120" rx="15" ry="15" width="100" height="100" fill="url(#Gradient2)" />
+    <!-- 不可以直接使用 css 的 lineargradient 的定义方式 -->
+    <rect x="10" y="230" rx="15" ry="15" width="100" height="100" style="background-image: linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c);" />
+    
+    <!-- 添加 radial gradients  -->
+    <rect x="10" y="340" rx="15" ry="15" width="100" height="100" fill="url(#RadialGradient1)" />
+    <rect x="10" y="450" rx="15" ry="15" width="100" height="100" fill="url(#RadialGradient2)" />
+    <circle cx="60" cy="390" r="50" fill="transparent" stroke="white" stroke-width="2" />
+    <!-- radial gradient 比 linear gradient 要复杂一些，原因是，对于 radial gradient 而言
+      有一个外部圆和一个焦点圆，它们由六个参数定义，分别是 cx、cy、r、fx、fy、fr 六个参数，其中 f 表示 focal 焦点的含义
+      前面两个参数表示圆心的位置，第三个参数表示半径，前三个参数用于定义外圆，后三个用于定义焦点圆
+      关于外部圆和内部圆的位置关系和处理: https://www.w3.org/TR/SVG/pservers.html#RadialGradientNotes
+    -->
+    <rect x="210" y="10" rx="15" ry="15" width="100" height="100" fill="url(#RadialGradient3)" stroke="black" stroke-width="2" />
+    
+    <circle cx="260" cy="60" r="50" fill="transparent" stroke="white" stroke-width="2" />
+    <circle cx="235" cy="35" r="2" fill="white" stroke="white" />
+    <circle cx="260" cy="60" r="2" fill="white" stroke="white" />
+    <text x="238" y="40" fill="white" font-family="sans-serif" font-size="10pt">(fx,fy)</text>  
+    <text x="263" y="63" fill="white" font-family="sans-serif" font-size="10pt">(cx,cy)</text>
+
+    <!-- 对于 radial gradient 和 linear gradient 而言，都有一个共同的 spreadMethod 属性，这个属性用于控制 
+        当一个渐变色达到它的终点的时候，对剩余的目标区域如何去设置其颜色，有三个可选值:
+        pad: 默认值，用最后的 stop-color 填充剩余区域
+        reflect: 按照 start-to-end, end-to-start, start-to-end 的方式填充剩余区域
+        repeat: 按照 start-to-end, start-to-end, start-to-end 的方式填充剩余区域
+        ps: 之前测试的时候没有出现效果，导致我以为浏览器并不支持这个 svg 属性，其实这个属性还受到矢量的作用，
+        也就是说，由于默认矢量的起始点是，x1 0 y1 0 x2 1 y2 1，其实矢量是一种既有大小又有方向的单位，
+        我之前只是简单的理解为它的方向决定了 gradient 的渲染方式，其实它的长度也表示了 gradient 的渲染范围，
+        而 spreadMethod 就是用于控制不在这个矢量范围内的渐变的显示
+        另外一个还须注意的地方是，color 的 offset 其实是在一个单位矢量而言的百分比，而不是整个图形的百分比
+    -->
+    <rect x="210" y="120" width="100" height="100" fill="url(#Gradient3)"></rect>
+    <rect x="210" y="230" width="100" height="100" fill="url(#Gradient4)"></rect>
+
+    <!-- 除 spreadMethod 之外，还有一个共同的 gradientUnits 属性，有两个可选值， userSpaceOnUse or objectBoundingBox
+        关于这两个值后面还会在 pattern 中提到，大致上他们的区别是，前者使用绝对单位，后者会对自身进行收缩去适应指定的容器
+    -->
+  </svg>
+  <div style="width: 300px; height: 300px; background-image: linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c);"></div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <svg>
+    <!-- 添加 dash 方式的直线，这点也和 canvas 的 lineDashOffset 和 setLineDash 有些相似 -->
+    <!-- dasharray 的值表示不断重复的实线和虚线的长度，如果只给两个数字，我们发现分布会比较均匀， -->
+    <!-- 如果给三个数字，我们会发现分布的情况是有时候是实线虚线长度不一，这是因为三个值的情况，也是会不断 -->
+    <!-- 重复，只不过重复的规律发生了变化 -->
+    <!-- 对于如果是奇数的参数数目，那么会进行 double 获得一个偶数的数组 -->
+    <!-- If the list has an odd number of values, then it is repeated to yield an even number of values. 
+      (Thus, the rendering behavior of stroke-dasharray: 
+        5,3,2 is equivalent to stroke-dasharray: 5,3,2,5,3,2.) -->
+    <path d="M 10 75 Q 50 10 100 75 T 190 75" 
+      stroke="black" stroke-linecap="round" stroke-dasharray="5,10,5" fill="none" />
+    <path d="M 10 75 L 190 75" 
+      stroke="red" stroke-linecap="round" stroke-width="1" stroke-dasharray="5,5" fill="none" />
+  </svg>
+  <!-- <span>123</span> -->
+</body>
+</html>

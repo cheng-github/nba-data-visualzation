@@ -1,0 +1,9 @@
+#MySecondRect {
+  stroke: black;
+  fill: dodgerblue;
+  width: 340px;
+}
+/* 甚至支持 hover，可见 https://www.w3.org/TR/SVG/styling.html#RequiredCSSFeatures */
+#MySecondRect:hover {
+  fill: darksalmon;
+}

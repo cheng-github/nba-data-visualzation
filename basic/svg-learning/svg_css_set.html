@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>svg color</title>
+</head>
+<style>
+  /* 写在 style 标签里 */
+  #MyRect {
+    stroke: black;
+    fill: red;
+    width: 230px;
+  }
+</style>
+<!-- 外联 -->
+<link href="./css/color_outside.css" type="text/css" rel="stylesheet" >
+<body>
+  <!-- 在之前的例子中，我们看到的都是在 标签上为元素添加一些样式，但如果对于每个单独的标签都去这样做，
+      那么可读性会大打折扣，所以我们可以将 svg 元素的样式单独写在一个 def 标签中，或者也可放在一个
+      外部的 CSS 文件中，当然也可以内联使用-->
+  <!-- 需要注意的是，并非所有的属性都可被支持写在 style 中，如果想要知道支持性，很容易被测试得知结果 -->
+  <svg width="600" height="600"> 
+    <rect x="10"  y="10" height="180" width="180" id="MyRect" />
+    <rect x="10" y="210" height="180" width="180" id="MySecondRect" />
+    <!-- 内联的写法 -->
+    <rect x="10" y="410" height="180" width="180" style="fill:aquamarine; stroke: black; width: 380;"  />
+  </svg>
+</body>
+</html>
