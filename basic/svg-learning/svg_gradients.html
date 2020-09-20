@@ -54,6 +54,11 @@
         <stop stop-color="orange" offset="20%" />
         <stop stop-color="pink" offset="85%" />
       </linearGradient>
+      <linearGradient id="Gradient5" gradientUnits="userSpaceOnUse">
+        <stop stop-color="black" offset="30%" />
+        <stop stop-color="orange" offset="40%" />
+        <stop stop-color="pink" offset="45%" />
+      </linearGradient>
       <radialGradient id="RadialGradient1">
         <stop offset="0%" stop-color="red" />
         <!-- <stop offset="90%" stop-color="orange" /> -->
@@ -97,17 +102,20 @@
         reflect: 按照 start-to-end, end-to-start, start-to-end 的方式填充剩余区域
         repeat: 按照 start-to-end, start-to-end, start-to-end 的方式填充剩余区域
         ps: 之前测试的时候没有出现效果，导致我以为浏览器并不支持这个 svg 属性，其实这个属性还受到矢量的作用，
-        也就是说，由于默认矢量的起始点是，x1 0 y1 0 x2 1 y2 1，其实矢量是一种既有大小又有方向的单位，
-        我之前只是简单的理解为它的方向决定了 gradient 的渲染方式，其实它的长度也表示了 gradient 的渲染范围，
-        而 spreadMethod 就是用于控制不在这个矢量范围内的渐变的显示
+        也就是说，由于默认矢量的起始点是，x1 0 y1 0 x2 1 y2 0，也就是说默认从左到右。
+        其实矢量是一种既有大小又有方向的单位，我之前只是简单的理解为它的方向决定了 gradient 的渲染方式，
+        其实它的长度也表示了 gradient 的渲染范围，而 spreadMethod 就是用于控制不在这个矢量范围内的渐变的显示
         另外一个还须注意的地方是，color 的 offset 其实是在一个单位矢量而言的百分比，而不是整个图形的百分比
     -->
     <rect x="210" y="120" width="100" height="100" fill="url(#Gradient3)"></rect>
     <rect x="210" y="230" width="100" height="100" fill="url(#Gradient4)"></rect>
 
-    <!-- 除 spreadMethod 之外，还有一个共同的 gradientUnits 属性，有两个可选值， userSpaceOnUse or objectBoundingBox
-        关于这两个值后面还会在 pattern 中提到，大致上他们的区别是，前者使用绝对单位，后者会对自身进行收缩去适应指定的容器
+    <!-- 除 spreadMethod 之外，还有一个共同的 gradientUnits 属性，有两个可选值， 
+        userSpaceOnUse or objectBoundingBox
+        关于这两个值后面还会在 pattern 中提到，这个着实困扰了我一段时间
+        gradientUnits 的作用是影响前面提到的 x1y1x2y2 的位置，
     -->
+    <rect x="210" y="340" width="100" height="100" fill="url(#Gradient5)"></rect>
   </svg>
   <div style="width: 300px; height: 300px; background-image: linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c);"></div>
 </body>

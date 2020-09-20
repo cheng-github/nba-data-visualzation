@@ -16,12 +16,16 @@
           <stop offset="5%" stop-color="red" />
           <stop offset="95%" stop-color="orange" />
         </linearGradient>
-      
+        <!-- 和渐变一样，pattern 也一样应该被放在 defs 的定义中 -->
+        <!-- height 和 width 定义一个 pattern 每次重复的最小单元，
+              而 x、y 定义的是距离开始点的偏移量 -->
         <pattern id="Pattern" x="0" y="0" width=".2" height=".2">
           <rect x="0" y="0" width="50" height="50" fill="skyblue" />
           <rect x="0" y="0" width="25" height="25" fill="url(#Gradient2)" />
           <circle cx="25" cy="25" r="20" fill="url(#Gradient1)" fill-opacity="0.5" />
         </pattern>
+
+        <!-- 之前我们在 gradient 的那块内容中，提到了一个 gradientUnits -->
       </defs>
       
       <rect fill="url(#Pattern)" stroke="black" width="200" height="200" />
